@@ -11,10 +11,8 @@
     <p><strong>Active:</strong> {{ user.is_active }}</p>
 
     <a href="{% url 'users:update' user.id %}">Edit</a>
-    <form method="post" action="{% url 'users:delete' user.id %}">
-      {% csrf_token %}
-      <button type="submit">Delete</button>
-    </form>
+
+    <a href="{% url 'users:delete' user.id %}">Delete</a>
 
     <a href="{% url 'users:list' %}">Back</a>
   </body>
