@@ -1,45 +1,42 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
-from .forms import UserForm
 from .models import User
 
 
-def user_list(request):
-    users = User.objects.all()
-    return render(request, "users/list.html", {"users": users})
+class UserListView(ListView):
+    model = User
+    template_name = "users/list.html"
+    context_object_name = "users"
 
 
-def user_detail(request, pk):
-    user = get_object_or_404(User, pk=pk)
-    return render(request, "users/detail.html", {"user": user})
+class UserDetailView(DetailView):
+    model = User
+    template_name = "users/detail.html"
+    context_object_name = "user"
 
 
-def user_create(request):
-    form = UserForm(request.POST or None)
-
-    if form.is_valid():
-        form.save()
-        return redirect("users:list")
-
-    return render(request, "users/form.html", {"form": form})
+class UserCreateView(CreateView):
+    model = User
+    fields = ["username", "email", "is_active"]
+    template_name = "users/form.html"
+    success_url = reverse_lazy("users:list")
 
 
-def user_update(request, pk):
-    user = get_object_or_404(User, pk=pk)
-    form = UserForm(request.POST or None, instance=user)
-
-    if form.is_valid():
-        form.save()
-        return redirect("users:list")
-
-    return render(request, "users/form.html", {"form": form})
+class UserUpdateView(UpdateView):
+    model = User
+    fields = ["username", "email", "is_active"]
+    template_name = "users/form.html"
+    success_url = reverse_lazy("users:list")
 
 
-def user_delete(request, pk):
-    user = get_object_or_404(User, pk=pk)
-
-    if request.method == "POST":
-        user.delete()
-        return redirect("users:list")
-
-    return render(request, "users/delete.html", {"user": user})
+class UserDeleteView(DeleteView):
+    model = User
+    template_name = "users/delete.html"
+    success_url = reverse_lazy("users:list")
