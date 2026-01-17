@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>User detail</title>
-</head>
-<body>
-<h1>User detail</h1>
+  </head>
+  <body>
+    <h1>User detail</h1>
 
-<p><strong>Username:</strong> {{ user.username }}</p>
-<p><strong>Email:</strong> {{ user.email }}</p>
-<p><strong>Active:</strong> {{ user.is_active }}</p>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Active:</strong> {{ user.is_active }}</p>
 
-<a href="{% url 'users:update' user.id %}">Edit</a>
-<form method="post" action="{% url 'users:delete' user.id %}">
-    {% csrf_token %}
-    <button type="submit">Delete</button>
-</form>
+    <a href="{% url 'users:update' user.id %}">Edit</a>
+    <form method="post" action="{% url 'users:delete' user.id %}">
+      {% csrf_token %}
+      <button type="submit">Delete</button>
+    </form>
 
-<a href="{% url 'users:list' %}">Back</a>
-</body>
+    <a href="{% url 'users:list' %}">Back</a>
+  </body>
 </html>

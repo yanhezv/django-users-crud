@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Delete user</title>
-</head>
-<body>
-<h1>Delete user</h1>
+  </head>
+  <body>
+    <h1>Delete user</h1>
 
-<p>Are you sure you want to delete {{ user.username }}?</p>
+    <p>Are you sure you want to delete {{ user.username }}?</p>
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Confirm</button>
-</form>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit">Confirm</button>
+    </form>
 
-<a href="{% url 'users:detail' user.id %}">Cancel</a>
-</body>
+    <a href="{% url 'users:detail' user.id %}">Cancel</a>
+  </body>
 </html>
